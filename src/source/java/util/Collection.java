@@ -140,7 +140,7 @@ import java.util.stream.StreamSupport;
  * @see     AbstractCollection
  * @since 1.2
  */
-
+// 容器类的顶层接口
 public interface Collection<E> extends Iterable<E> {
     // Query Operations
 
@@ -149,15 +149,17 @@ public interface Collection<E> extends Iterable<E> {
      * contains more than <tt>Integer.MAX_VALUE</tt> elements, returns
      * <tt>Integer.MAX_VALUE</tt>.
      *
-     * @return the number of elements in this collection
+     * @return 当前容器当中的元素个数
      */
+    // 返回当前容器的元素个数
     int size();
 
     /**
-     * Returns <tt>true</tt> if this collection contains no elements.
+     * 如果容器内不包含任何元素返回true
      *
      * @return <tt>true</tt> if this collection contains no elements
      */
+    // 判断当前容器是否为空
     boolean isEmpty();
 
     /**
@@ -176,6 +178,7 @@ public interface Collection<E> extends Iterable<E> {
      *         collection does not permit null elements
      *         (<a href="#optional-restrictions">optional</a>)
      */
+    // 判断当前容器中是否包含元素o
     boolean contains(Object o);
 
     /**
@@ -186,6 +189,7 @@ public interface Collection<E> extends Iterable<E> {
      *
      * @return an <tt>Iterator</tt> over the elements in this collection
      */
+    // 返回当前容器的迭代器
     Iterator<E> iterator();
 
     /**
@@ -202,8 +206,9 @@ public interface Collection<E> extends Iterable<E> {
      * <p>This method acts as bridge between array-based and collection-based
      * APIs.
      *
-     * @return an array containing all of the elements in this collection
+     * @return 一个包含当前容器所有元素的数组
      */
+    // 以数组形式返回当前容器中的元素
     Object[] toArray();
 
     /**
@@ -249,6 +254,7 @@ public interface Collection<E> extends Iterable<E> {
      *         this collection
      * @throws NullPointerException if the specified array is null
      */
+    // 将当前容器中的元素存入数组a后返回，需要将容器中的元素转为T类型
     <T> T[] toArray(T[] a);
 
     // Modification Operations
@@ -286,6 +292,7 @@ public interface Collection<E> extends Iterable<E> {
      * @throws IllegalStateException if the element cannot be added at this
      *         time due to insertion restrictions
      */
+    // 向当前容器中添加元素e
     boolean add(E e);
 
     /**
@@ -308,6 +315,7 @@ public interface Collection<E> extends Iterable<E> {
      * @throws UnsupportedOperationException if the <tt>remove</tt> operation
      *         is not supported by this collection
      */
+    // 移除指定元素o，并返回是否移除成功
     boolean remove(Object o);
 
 
@@ -331,6 +339,7 @@ public interface Collection<E> extends Iterable<E> {
      *         or if the specified collection is null.
      * @see    #contains(Object)
      */
+    // 判断指定容器中的元素是否都包含在当前容器中
     boolean containsAll(Collection<?> c);
 
     /**
@@ -357,6 +366,7 @@ public interface Collection<E> extends Iterable<E> {
      *         this time due to insertion restrictions
      * @see #add(Object)
      */
+    // 将指定容器中的所有元素添加到当前容器中
     boolean addAll(Collection<? extends E> c);
 
     /**
@@ -382,6 +392,7 @@ public interface Collection<E> extends Iterable<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
+    // (匹配则移除)移除当前容器中所有与给定容器中的元素匹配的元素
     boolean removeAll(Collection<?> c);
 
     /**
@@ -441,6 +452,7 @@ public interface Collection<E> extends Iterable<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
+    // (匹配则保留) 保留当前容器中所有与给定容器中的元素匹配的元素
     boolean retainAll(Collection<?> c);
 
     /**
@@ -450,6 +462,7 @@ public interface Collection<E> extends Iterable<E> {
      * @throws UnsupportedOperationException if the <tt>clear</tt> operation
      *         is not supported by this collection
      */
+    // 清空当前容器中的所有元素
     void clear();
 
 
@@ -557,6 +570,7 @@ public interface Collection<E> extends Iterable<E> {
      * @return a {@code Spliterator} over the elements in this collection
      * @since 1.8
      */
+    // 返回描述此容器中元素的Spliterator
     @Override
     default Spliterator<E> spliterator() {
         return Spliterators.spliterator(this, 0);
@@ -577,6 +591,7 @@ public interface Collection<E> extends Iterable<E> {
      * @return a sequential {@code Stream} over the elements in this collection
      * @since 1.8
      */
+    // 获取当前容器的顺序数据流
     default Stream<E> stream() {
         return StreamSupport.stream(spliterator(), false);
     }
@@ -598,6 +613,7 @@ public interface Collection<E> extends Iterable<E> {
      * collection
      * @since 1.8
      */
+    // 获取当前容器的并行数据流
     default Stream<E> parallelStream() {
         return StreamSupport.stream(spliterator(), true);
     }
