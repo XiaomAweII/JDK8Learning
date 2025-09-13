@@ -26,42 +26,32 @@
 package java.util;
 
 /**
- * This class provides a skeletal implementation of the {@link List}
- * interface to minimize the effort required to implement this interface
- * backed by a "random access" data store (such as an array).  For sequential
- * access data (such as a linked list), {@link AbstractSequentialList} should
- * be used in preference to this class.
+ * 这个类提供了{@link List}接口的骨架实现，用于最小化实现基于"随机访问"数据存储（如数组）的
+ * 此接口所需的工作。对于顺序访问数据（如链表），应优先使用{@link AbstractSequentialList}而不是此类。
  *
- * <p>To implement an unmodifiable list, the programmer needs only to extend
- * this class and provide implementations for the {@link #get(int)} and
- * {@link List#size() size()} methods.
+ * <p>要实现一个不可修改的列表，程序员只需要扩展此类并为{@link #get(int)}和
+ * {@link List#size() size()}方法提供实现。
  *
- * <p>To implement a modifiable list, the programmer must additionally
- * override the {@link #set(int, Object) set(int, E)} method (which otherwise
- * throws an {@code UnsupportedOperationException}).  If the list is
- * variable-size the programmer must additionally override the
- * {@link #add(int, Object) add(int, E)} and {@link #remove(int)} methods.
+ * <p>要实现一个可修改的列表，程序员必须额外重写{@link #set(int, Object) set(int, E)}方法
+ * （否则会抛出{@code UnsupportedOperationException}）。如果列表大小可变，程序员还必须额外
+ * 重写{@link #add(int, Object) add(int, E)}和{@link #remove(int)}方法。
  *
- * <p>The programmer should generally provide a void (no argument) and collection
- * constructor, as per the recommendation in the {@link Collection} interface
- * specification.
+ * <p>根据{@link Collection}接口规范的建议，程序员通常应该提供一个无参数构造函数和一个集合
+ * 构造函数。
  *
- * <p>Unlike the other abstract collection implementations, the programmer does
- * <i>not</i> have to provide an iterator implementation; the iterator and
- * list iterator are implemented by this class, on top of the "random access"
- * methods:
+ * <p>与其他抽象集合实现不同，程序员<i>不</i>必须提供迭代器实现；迭代器和列表迭代器是由此类
+ * 实现的，基于以下"随机访问"方法：
  * {@link #get(int)},
  * {@link #set(int, Object) set(int, E)},
- * {@link #add(int, Object) add(int, E)} and
- * {@link #remove(int)}.
+ * {@link #add(int, Object) add(int, E)}和
+ * {@link #remove(int)}。
  *
- * <p>The documentation for each non-abstract method in this class describes its
- * implementation in detail.  Each of these methods may be overridden if the
- * collection being implemented admits a more efficient implementation.
+ * <p>此类中每个非抽象方法的文档都详细描述了其实现。如果所实现的集合允许更高效的实现，则可以
+ * 重写这些方法中的每一个。
  *
- * <p>This class is a member of the
+ * <p>此类是
  * <a href="{@docRoot}/../technotes/guides/collections/index.html">
- * Java Collections Framework</a>.
+ * Java集合框架</a>的成员。
  *
  * @author  Josh Bloch
  * @author  Neal Gafter
@@ -70,39 +60,29 @@ package java.util;
 
 public abstract class AbstractList<E> extends AbstractCollection<E> implements List<E> {
     /**
-     * Sole constructor.  (For invocation by subclass constructors, typically
-     * implicit.)
+     * 唯一的构造函数。（供子类构造函数调用，通常是隐式的。）
      */
     protected AbstractList() {
     }
 
     /**
-     * Appends the specified element to the end of this list (optional
-     * operation).
+     * 将指定的元素追加到此列表的末尾（可选操作）。
      *
-     * <p>Lists that support this operation may place limitations on what
-     * elements may be added to this list.  In particular, some
-     * lists will refuse to add null elements, and others will impose
-     * restrictions on the type of elements that may be added.  List
-     * classes should clearly specify in their documentation any restrictions
-     * on what elements may be added.
+     * <p>支持此操作的列表可能会对可添加到此列表的元素施加限制。特别是，某些
+     * 列表将拒绝添加null元素，而其他列表将对可添加的元素类型施加限制。列表
+     * 类应在其文档中明确说明对可添加元素的任何限制。
      *
-     * <p>This implementation calls {@code add(size(), e)}.
+     * <p>此实现调用{@code add(size(), e)}。
      *
-     * <p>Note that this implementation throws an
-     * {@code UnsupportedOperationException} unless
-     * {@link #add(int, Object) add(int, E)} is overridden.
+     * <p>请注意，除非重写了{@link #add(int, Object) add(int, E)}，否则此实现
+     * 将抛出{@code UnsupportedOperationException}。
      *
-     * @param e element to be appended to this list
-     * @return {@code true} (as specified by {@link Collection#add})
-     * @throws UnsupportedOperationException if the {@code add} operation
-     *         is not supported by this list
-     * @throws ClassCastException if the class of the specified element
-     *         prevents it from being added to this list
-     * @throws NullPointerException if the specified element is null and this
-     *         list does not permit null elements
-     * @throws IllegalArgumentException if some property of this element
-     *         prevents it from being added to this list
+     * @param e 要追加到此列表的元素
+     * @return {@code true}（由{@link Collection#add}指定）
+     * @throws UnsupportedOperationException 如果此列表不支持{@code add}操作
+     * @throws ClassCastException 如果指定元素的类阻止其添加到此列表
+     * @throws NullPointerException 如果指定的元素为null且此列表不允许null元素
+     * @throws IllegalArgumentException 如果此元素的某些属性阻止其添加到此列表
      */
     public boolean add(E e) {
         add(size(), e);
@@ -218,17 +198,15 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
 
     /**
      * Removes all of the elements from this list (optional operation).
-     * The list will be empty after this call returns.
+     * 此调用返回后列表将为空。
      *
-     * <p>This implementation calls {@code removeRange(0, size())}.
+     * <p>此实现调用 {@code removeRange(0, size())}。
      *
-     * <p>Note that this implementation throws an
-     * {@code UnsupportedOperationException} unless {@code remove(int
-     * index)} or {@code removeRange(int fromIndex, int toIndex)} is
-     * overridden.
+     * <p>注意，除非重写了 {@code remove(int
+     * index)} 或 {@code removeRange(int fromIndex, int toIndex)}，
+     * 否则此实现将抛出 {@code UnsupportedOperationException}。
      *
-     * @throws UnsupportedOperationException if the {@code clear} operation
-     *         is not supported by this list
+     * @throws UnsupportedOperationException 如果此列表不支持 {@code clear} 操作
      */
     public void clear() {
         removeRange(0, size());
@@ -237,15 +215,12 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
     /**
      * {@inheritDoc}
      *
-     * <p>This implementation gets an iterator over the specified collection
-     * and iterates over it, inserting the elements obtained from the
-     * iterator into this list at the appropriate position, one at a time,
-     * using {@code add(int, E)}.
-     * Many implementations will override this method for efficiency.
+     * <p>此实现获取指定集合的迭代器并对其进行迭代，使用 {@code add(int, E)} 
+     * 将从迭代器获得的元素一次一个地插入到此列表的适当位置。
+     * 许多实现会重写此方法以提高效率。
      *
-     * <p>Note that this implementation throws an
-     * {@code UnsupportedOperationException} unless
-     * {@link #add(int, Object) add(int, E)} is overridden.
+     * <p>注意，除非重写了 {@link #add(int, Object) add(int, E)}，
+     * 否则此实现将抛出 {@code UnsupportedOperationException}。
      *
      * @throws UnsupportedOperationException {@inheritDoc}
      * @throws ClassCastException            {@inheritDoc}
@@ -267,22 +242,19 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
     // Iterators
 
     /**
-     * Returns an iterator over the elements in this list in proper sequence.
+     * 返回此列表中按适当顺序排列的元素的迭代器。
      *
-     * <p>This implementation returns a straightforward implementation of the
-     * iterator interface, relying on the backing list's {@code size()},
-     * {@code get(int)}, and {@code remove(int)} methods.
+     * <p>此实现返回迭代器接口的直接实现，依赖于底层列表的 {@code size()}、
+     * {@code get(int)} 和 {@code remove(int)} 方法。
      *
-     * <p>Note that the iterator returned by this method will throw an
-     * {@link UnsupportedOperationException} in response to its
-     * {@code remove} method unless the list's {@code remove(int)} method is
-     * overridden.
+     * <p>注意，除非重写了列表的 {@code remove(int)} 方法，
+     * 否则此方法返回的迭代器将在其 {@code remove} 方法中抛出
+     * {@link UnsupportedOperationException}。
      *
-     * <p>This implementation can be made to throw runtime exceptions in the
-     * face of concurrent modification, as described in the specification
-     * for the (protected) {@link #modCount} field.
+     * <p>此实现在面对并发修改时可能抛出运行时异常，
+     * 如（受保护的）{@link #modCount} 字段的规范中所述。
      *
-     * @return an iterator over the elements in this list in proper sequence
+     * @return 此列表中按适当顺序排列的元素的迭代器
      */
     public Iterator<E> iterator() {
         return new Itr();
@@ -291,7 +263,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
     /**
      * {@inheritDoc}
      *
-     * <p>This implementation returns {@code listIterator(0)}.
+     * <p>此实现返回 {@code listIterator(0)}。
      *
      * @see #listIterator(int)
      */
@@ -302,22 +274,18 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
     /**
      * {@inheritDoc}
      *
-     * <p>This implementation returns a straightforward implementation of the
-     * {@code ListIterator} interface that extends the implementation of the
-     * {@code Iterator} interface returned by the {@code iterator()} method.
-     * The {@code ListIterator} implementation relies on the backing list's
-     * {@code get(int)}, {@code set(int, E)}, {@code add(int, E)}
-     * and {@code remove(int)} methods.
+     * <p>此实现返回 {@code ListIterator} 接口的直接实现，该实现扩展了
+     * {@code iterator()} 方法返回的 {@code Iterator} 接口的实现。
+     * {@code ListIterator} 实现依赖于底层列表的 {@code get(int)}、
+     * {@code set(int, E)}、{@code add(int, E)} 和 {@code remove(int)} 方法。
      *
-     * <p>Note that the list iterator returned by this implementation will
-     * throw an {@link UnsupportedOperationException} in response to its
-     * {@code remove}, {@code set} and {@code add} methods unless the
-     * list's {@code remove(int)}, {@code set(int, E)}, and
-     * {@code add(int, E)} methods are overridden.
+     * <p>注意，除非重写了列表的 {@code remove(int)}、{@code set(int, E)} 和
+     * {@code add(int, E)} 方法，否则此实现返回的列表迭代器将在其
+     * {@code remove}、{@code set} 和 {@code add} 方法中抛出
+     * {@link UnsupportedOperationException}。
      *
-     * <p>This implementation can be made to throw runtime exceptions in the
-     * face of concurrent modification, as described in the specification for
-     * the (protected) {@link #modCount} field.
+     * <p>此实现在面对并发修改时可能抛出运行时异常，
+     * 如（受保护的）{@link #modCount} 字段的规范中所述。
      *
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
@@ -329,21 +297,19 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
 
     private class Itr implements Iterator<E> {
         /**
-         * Index of element to be returned by subsequent call to next.
+         * 下一次调用 next 时要返回的元素的索引。
          */
         int cursor = 0;
 
         /**
-         * Index of element returned by most recent call to next or
-         * previous.  Reset to -1 if this element is deleted by a call
-         * to remove.
+         * 最近一次调用 next 或 previous 返回的元素的索引。
+         * 如果通过调用 remove 删除了该元素，则重置为 -1。
          */
         int lastRet = -1;
 
         /**
-         * The modCount value that the iterator believes that the backing
-         * List should have.  If this expectation is violated, the iterator
-         * has detected concurrent modification.
+         * 迭代器认为底层 List 应该具有的 modCount 值。
+         * 如果违反了这个期望值，则迭代器检测到并发修改。
          */
         int expectedModCount = modCount;
 
@@ -448,36 +414,29 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
     /**
      * {@inheritDoc}
      *
-     * <p>This implementation returns a list that subclasses
-     * {@code AbstractList}.  The subclass stores, in private fields, the
-     * offset of the subList within the backing list, the size of the subList
-     * (which can change over its lifetime), and the expected
-     * {@code modCount} value of the backing list.  There are two variants
-     * of the subclass, one of which implements {@code RandomAccess}.
-     * If this list implements {@code RandomAccess} the returned list will
-     * be an instance of the subclass that implements {@code RandomAccess}.
+     * <p>此实现返回一个继承 {@code AbstractList} 的列表。该子类在私有字段中存储
+     * 子列表在底层列表中的偏移量、子列表的大小（可以在其生命周期内改变）以及
+     * 底层列表的预期 {@code modCount} 值。子类有两个变体，其中一个实现了
+     * {@code RandomAccess}。如果此列表实现了 {@code RandomAccess}，则返回的
+     * 列表将是实现 {@code RandomAccess} 的子类的实例。
      *
-     * <p>The subclass's {@code set(int, E)}, {@code get(int)},
-     * {@code add(int, E)}, {@code remove(int)}, {@code addAll(int,
-     * Collection)} and {@code removeRange(int, int)} methods all
-     * delegate to the corresponding methods on the backing abstract list,
-     * after bounds-checking the index and adjusting for the offset.  The
-     * {@code addAll(Collection c)} method merely returns {@code addAll(size,
-     * c)}.
+     * <p>子类的 {@code set(int, E)}、{@code get(int)}、{@code add(int, E)}、
+     * {@code remove(int)}、{@code addAll(int, Collection)} 和
+     * {@code removeRange(int, int)} 方法在进行边界检查和调整偏移量后，
+     * 都委托给底层抽象列表上的相应方法。{@code addAll(Collection c)} 方法
+     * 仅返回 {@code addAll(size, c)}。
      *
-     * <p>The {@code listIterator(int)} method returns a "wrapper object"
-     * over a list iterator on the backing list, which is created with the
-     * corresponding method on the backing list.  The {@code iterator} method
-     * merely returns {@code listIterator()}, and the {@code size} method
-     * merely returns the subclass's {@code size} field.
+     * <p>{@code listIterator(int)} 方法返回底层列表上列表迭代器的一个
+     * "包装对象"，该迭代器是使用底层列表上的相应方法创建的。{@code iterator}
+     * 方法仅返回 {@code listIterator()}，而 {@code size} 方法仅返回子类的
+     * {@code size} 字段。
      *
-     * <p>All methods first check to see if the actual {@code modCount} of
-     * the backing list is equal to its expected value, and throw a
-     * {@code ConcurrentModificationException} if it is not.
+     * <p>所有方法首先检查底层列表的实际 {@code modCount} 是否等于其预期值，
+     * 如果不是，则抛出 {@code ConcurrentModificationException}。
      *
-     * @throws IndexOutOfBoundsException if an endpoint index value is out of range
+     * @throws IndexOutOfBoundsException 如果端点索引值超出范围
      *         {@code (fromIndex < 0 || toIndex > size)}
-     * @throws IllegalArgumentException if the endpoint indices are out of order
+     * @throws IllegalArgumentException 如果端点索引顺序不正确
      *         {@code (fromIndex > toIndex)}
      */
     public List<E> subList(int fromIndex, int toIndex) {
